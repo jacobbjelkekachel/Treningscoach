@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0f0f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Treningscoach">
+  <title>Treningscoach — Jacob</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:            #0f0f0f;
+      --surface:       #1c1c1e;
+      --surface-2:     #2c2c2e;
+      --border:        #3a3a3c;
+      --text:          #f5f5f7;
+      --text-muted:    #8e8e93;
+      --accent:        #ff6b35;
+      --green:         #30d158;
+      --yellow:        #ffd60a;
+      --orange:        #ff9f0a;
+      --red:           #ff453a;
+      --blue:          #0a84ff;
+      --nav-h:         60px;
+      --safe-top:      env(safe-area-inset-top, 0px);
+      --safe-bottom:   env(safe-area-inset-bottom, 0px);
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .app-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      padding-top: calc(var(--safe-top) + 12px);
+      flex-shrink: 0;
+    }
+
+    .app-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .app-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* ── MAIN SCROLL AREA ── */
+    .main {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 20px);
+    }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      padding: 20px 16px 10px;
+      color: var(--text);
+    }
+
+    .section-title.sm {
+      font-size: 18px;
+      padding-top: 24px;
+    }
+
+    /* ── FORM CARD ── */
+    .card {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      overflow: hidden;
+    }
+
+    .field {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .field:last-child {
+      border-bottom: none;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 7px;
+    }
+
+    .field-label .opt {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      opacity: 0.7;
+      font-size: 11px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* inputs */
+    input[type="date"],
+    input[type="number"],
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+      appearance: none;
+      color-scheme: dark;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238e8e93' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 13px center;
+      padding-right: 36px;
+    }
+
+    select option {
+      background: var(--surface-2);
+    }
+
+    textarea {
+      resize: none;
+      min-height: 88px;
+      line-height: 1.5;
+    }
+
+    /* ── RPE SLIDER ── */
+    .rpe-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rpe-num {
+      font-size: 32px;
+      font-weight: 800;
+      min-width: 40px;
+      text-align: center;
+      line-height: 1;
+      color: var(--accent);
+      transition: color 0.15s;
+    }
+
+    .rpe-track {
+      flex: 1;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--surface-2);
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      transition: background 0.15s;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .rpe-hint {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── SAVE BUTTON ── */
+    .btn-save {
+      display: block;
+      width: calc(100% - 32px);
+      margin: 0 16px 6px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 15px;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s, transform 0.1s;
+      letter-spacing: -0.2px;
+    }
+
+    .btn-save:active {
+      opacity: 0.82;
+      transform: scale(0.975);
+    }
+
+    /* ── HISTORY ── */
+    .history-empty {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 36px 24px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .history-list {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      overflow: hidden;
+    }
+
+    .history-entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry-icon {
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .entry-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .entry-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .entry-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .entry-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .entry-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .entry-notes {
+      font-size: 13px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .badge-easy       { background: rgba(48,209,88,0.14);   color: var(--green); }
+    .badge-threshold  { background: rgba(255,214,10,0.14);  color: var(--yellow); }
+    .badge-interval   { background: rgba(255,69,58,0.14);   color: var(--red); }
+    .badge-strength   { background: rgba(10,132,255,0.14);  color: var(--blue); }
+    .badge-recovery   { background: rgba(142,142,147,0.14); color: var(--text-muted); }
+    .badge-race       { background: rgba(255,107,53,0.14);  color: var(--accent); }
+
+    .rpe-badge {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 6px;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+      opacity: 0.5;
+      align-self: center;
+      transition: opacity 0.15s, color 0.15s;
+    }
+
+    .btn-delete:active {
+      opacity: 1;
+      color: var(--red);
+    }
+
+    /* ── PLAN VIEW ── */
+    .plan-empty {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .plan-empty-icon {
+      font-size: 52px;
+      margin-bottom: 14px;
+    }
+
+    .plan-empty-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .plan-empty-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .plan-comment {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      padding: 16px;
+    }
+
+    .plan-comment-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .plan-comment-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .plan-days {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      overflow: hidden;
+    }
+
+    .plan-day {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-day:last-child {
+      border-bottom: none;
+    }
+
+    .plan-day-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .plan-day-date {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .plan-day-desc {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+
+    .plan-day-targets {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .plan-updated {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 0 16px 16px;
+    }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: calc(var(--nav-h) + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 100;
+    }
+
+    .nav-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-tab.active {
+      color: var(--accent);
+    }
+
+    .nav-tab svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: 1.8;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      top: calc(var(--safe-top) + 72px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--green);
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 22px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── RESPONSIVE (wider screens) ── */
+    @media (min-width: 520px) {
+      .card, .history-list, .plan-days, .plan-comment, .plan-empty {
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-save {
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>Treningscoach</h1>
+    <p>Jacob · Ingebrigtsen-metoden</p>
+  </header>
+
+  <main class="main">
+
+    <!-- ═══════════════════════════════════════
+         VIEW: Logg økt
+    ═══════════════════════════════════════ -->
+    <section class="view active" id="view-log">
+      <div class="section-title">Logg økt</div>
+
+      <div class="card">
+
+        <!-- Dato -->
+        <div class="field">
+          <label class="field-label" for="f-date">Dato</label>
+          <input type="date" id="f-date" required>
+        </div>
+
+        <!-- Aktivitetstype -->
+        <div class="field">
+          <label class="field-label" for="f-activity">Aktivitet</label>
+          <select id="f-activity">
+            <option value="running">🏃 Løping</option>
+            <option value="strength">💪 Styrke</option>
+            <option value="cycling">🚴 Sykling</option>
+            <option value="swimming">🏊 Svømming</option>
+            <option value="crosscountry">⛷️ Langrenn</option>
+            <option value="rest">😴 Hvile</option>
+            <option value="other">⚡ Annet</option>
+          </select>
+        </div>
+
+        <!-- Økttype -->
+        <div class="field">
+          <label class="field-label" for="f-session">Økttype</label>
+          <select id="f-session">
+            <option value="easy">Rolig</option>
+            <option value="threshold">Terskel</option>
+            <option value="interval">Intervall</option>
+            <option value="strength">Styrke</option>
+            <option value="recovery">Restitusjon</option>
+            <option value="race">Konkurranse</option>
+          </select>
+        </div>
+
+        <!-- Varighet + Distanse -->
+        <div class="field">
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="f-duration">Varighet (min)</label>
+              <input type="number" id="f-duration" placeholder="60" min="1" max="600">
+            </div>
+            <div>
+              <label class="field-label" for="f-distance">
+                Distanse (km) <span class="opt">valgfritt</span>
+              </label>
+              <input type="number" id="f-distance" placeholder="10.0" min="0" max="500" step="0.1">
+            </div>
+          </div>
+        </div>
+
+        <!-- Gjennomsnittspuls -->
+        <div class="field">
+          <label class="field-label" for="f-hr">
+            Snitt puls <span class="opt">valgfritt</span>
+          </label>
+          <input type="number" id="f-hr" placeholder="148" min="40" max="220">
+        </div>
+
+        <!-- RPE -->
+        <div class="field">
+          <label class="field-label">RPE — opplevd intensitet</label>
+          <div class="rpe-wrap">
+            <div class="rpe-num" id="rpe-display">5</div>
+            <div class="rpe-track">
+              <input type="range" id="f-rpe" min="1" max="10" value="5">
+              <div class="rpe-hint">
+                <span>1 Veldig lett</span>
+                <span>10 Maks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notater -->
+        <div class="field">
+          <label class="field-label" for="f-notes">Notater</label>
+          <textarea id="f-notes" placeholder="Dagsform, søvn, stress, bein, motivasjon, alkohol…"></textarea>
+        </div>
+
+      </div><!-- /card -->
+
+      <button class="btn-save" id="btn-save">Lagre økt</button>
+
+      <!-- Historikk-liste -->
+      <div class="section-title sm">Historikk</div>
+      <div id="history-container"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         VIEW: Min plan
+    ═══════════════════════════════════════ -->
+    <section class="view" id="view-plan">
+      <div class="section-title">Min plan</div>
+      <div id="plan-container"></div>
+    </section>
+
+  </main>
+
+  <!-- ── BOTTOM NAV ── -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" id="nav-log" onclick="switchView('log')">
+      <!-- Pencil icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      Logg økt
+    </button>
+    <button class="nav-tab" id="nav-plan" onclick="switchView('plan')">
+      <!-- Calendar icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      Min plan
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    'use strict';
+
+    /* ═══════════════════════════════════════════
+       CONSTANTS
+    ═══════════════════════════════════════════ */
+    const STORAGE_LOG  = 'treningscoach_log';
+    const STORAGE_PLAN = 'treningscoach_plan';
+
+    const ACTIVITY = {
+      running:      { label: 'Løping',   icon: '🏃' },
+      strength:     { label: 'Styrke',   icon: '💪' },
+      cycling:      { label: 'Sykling',  icon: '🚴' },
+      swimming:     { label: 'Svømming', icon: '🏊' },
+      crosscountry: { label: 'Langrenn', icon: '⛷️' },
+      rest:         { label: 'Hvile',    icon: '😴' },
+      other:        { label: 'Annet',    icon: '⚡' },
+    };
+
+    const SESSION = {
+      easy:      { label: 'Rolig',       badge: 'badge-easy' },
+      threshold: { label: 'Terskel',     badge: 'badge-threshold' },
+      interval:  { label: 'Intervall',   badge: 'badge-interval' },
+      strength:  { label: 'Styrke',      badge: 'badge-strength' },
+      recovery:  { label: 'Restitusjon', badge: 'badge-recovery' },
+      race:      { label: 'Konkurranse', badge: 'badge-race' },
+    };
+
+    // RPE colour scale 1–10
+    const RPE_COLORS = [
+      null,
+      '#30d158','#30d158','#30d158','#30d158',   // 1–4 green
+      '#ffd60a','#ffd60a',                        // 5–6 yellow
+      '#ff9f0a',                                  // 7 orange
+      '#ff6b35',                                  // 8 accent
+      '#ff453a','#ff453a',                        // 9–10 red
+    ];
+
+    /* ═══════════════════════════════════════════
+       STATE
+    ═══════════════════════════════════════════ */
+    let logEntries   = [];
+    let trainingPlan = null;
+
+    /* ═══════════════════════════════════════════
+       STORAGE
+    ═══════════════════════════════════════════ */
+    function loadStorage() {
+      try { logEntries   = JSON.parse(localStorage.getItem(STORAGE_LOG)  || '[]'); } catch { logEntries = []; }
+      try { trainingPlan = JSON.parse(localStorage.getItem(STORAGE_PLAN) || 'null'); } catch { trainingPlan = null; }
+    }
+
+    function persistLog() {
+      localStorage.setItem(STORAGE_LOG, JSON.stringify(logEntries));
+    }
+
+    /* ═══════════════════════════════════════════
+       HELPERS
+    ═══════════════════════════════════════════ */
+    function todayISO() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function generateId(date) {
+      const count = logEntries.filter(e => e.date === date).length;
+      return `${date}-${count + 1}`;
+    }
+
+    function formatDate(iso) {
+      // Parse as local date to avoid off-by-one from UTC
+      const [y, m, d] = iso.split('-').map(Number);
+      const date = new Date(y, m - 1, d);
+      return date.toLocaleDateString('nb-NO', { weekday: 'short', day: 'numeric', month: 'short' });
+    }
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function activity(key) {
+      return ACTIVITY[key] || { label: key, icon: '⚡' };
+    }
+
+    function session(key) {
+      return SESSION[key] || { label: key, badge: '' };
+    }
+
+    /* ═══════════════════════════════════════════
+       VIEW SWITCHING
+    ═══════════════════════════════════════════ */
+    function switchView(name) {
+      document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      document.getElementById('view-' + name).classList.add('active');
+      document.getElementById('nav-'  + name).classList.add('active');
+      if (name === 'plan') renderPlan();
+    }
+
+    /* ═══════════════════════════════════════════
+       RPE SLIDER
+    ═══════════════════════════════════════════ */
+    const rpeInput   = document.getElementById('f-rpe');
+    const rpeDisplay = document.getElementById('rpe-display');
+
+    function updateRpe(val) {
+      const n      = parseInt(val);
+      const color  = RPE_COLORS[n] || 'var(--accent)';
+      rpeDisplay.textContent   = n;
+      rpeDisplay.style.color   = color;
+      rpeInput.style.background = buildSliderGradient(n, color);
+      // keep thumb colour in sync via CSS variable trick
+      rpeInput.style.setProperty('--thumb', color);
+    }
+
+    function buildSliderGradient(val, color) {
+      const pct = ((val - 1) / 9) * 100;
+      return `linear-gradient(to right, ${color} ${pct}%, var(--surface-2) ${pct}%)`;
+    }
+
+    rpeInput.addEventListener('input', () => updateRpe(rpeInput.value));
+
+    /* ═══════════════════════════════════════════
+       FORM — SAVE
+    ═══════════════════════════════════════════ */
+    document.getElementById('btn-save').addEventListener('click', handleSave);
+
+    // Prevent accidental submit on Enter inside the form
+    document.querySelector('.card').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
+    });
+
+    function handleSave() {
+      const date     = document.getElementById('f-date').value;
+      const duration = parseInt(document.getElementById('f-duration').value);
+
+      if (!date) {
+        showToast('Velg en dato', false);
+        return;
+      }
+      if (!duration || duration < 1) {
+        showToast('Fyll inn varighet (min)', false);
+        return;
+      }
+
+      const distVal = parseFloat(document.getElementById('f-distance').value);
+      const hrVal   = parseInt(document.getElementById('f-hr').value);
+
+      const entry = {
+        id:             generateId(date),
+        date,
+        timestamp:      Date.now(),
+        activityType:   document.getElementById('f-activity').value,
+        durationMinutes: duration,
+        distanceKm:     isNaN(distVal) || distVal <= 0 ? null : distVal,
+        avgHeartRate:   isNaN(hrVal)   || hrVal < 40   ? null : hrVal,
+        sessionType:    document.getElementById('f-session').value,
+        rpe:            parseInt(document.getElementById('f-rpe').value),
+        notes:          document.getElementById('f-notes').value.trim(),
+      };
+
+      logEntries.unshift(entry);
+      persistLog();
+      resetForm();
+      renderHistory();
+      showToast('Økt lagret ✓');
+    }
+
+    function resetForm() {
+      document.getElementById('f-date').value     = todayISO();
+      document.getElementById('f-activity').value = 'running';
+      document.getElementById('f-session').value  = 'easy';
+      document.getElementById('f-duration').value = '';
+      document.getElementById('f-distance').value = '';
+      document.getElementById('f-hr').value       = '';
+      document.getElementById('f-rpe').value      = '5';
+      document.getElementById('f-notes').value    = '';
+      updateRpe(5);
+      // Scroll back to top of main
+      document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ═══════════════════════════════════════════
+       TOAST
+    ═══════════════════════════════════════════ */
+    let toastTimer;
+    function showToast(msg, success = true) {
+      const el  = document.getElementById('toast');
+      el.textContent       = msg;
+      el.style.background  = success ? 'var(--green)' : 'var(--red)';
+      el.style.color       = success ? '#000' : '#fff';
+      el.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('visible'), 2400);
+    }
+
+    /* ═══════════════════════════════════════════
+       HISTORY RENDER
+    ═══════════════════════════════════════════ */
+    function renderHistory() {
+      const container = document.getElementById('history-container');
+
+      if (logEntries.length === 0) {
+        container.innerHTML = '<div class="history-empty">Ingen økter ennå.<br>Logg din første økt ovenfor.</div>';
+        return;
+      }
+
+      const rows = logEntries.map(e => {
+        const act  = activity(e.activityType);
+        const ses  = session(e.sessionType);
+        const rClr = RPE_COLORS[e.rpe] || 'var(--accent)';
+
+        const metaParts = [];
+        if (e.durationMinutes) metaParts.push(`⏱ ${e.durationMinutes} min`);
+        if (e.distanceKm)      metaParts.push(`📍 ${e.distanceKm} km`);
+        if (e.avgHeartRate)    metaParts.push(`❤️ ${e.avgHeartRate} bpm`);
+
+        return `
+          <div class="history-entry">
+            <div class="entry-icon">${act.icon}</div>
+            <div class="entry-body">
+              <div class="entry-top">
+                <span class="entry-name">${escHtml(act.label)}</span>
+                <span class="entry-date">${formatDate(e.date)}</span>
+              </div>
+              <div class="entry-meta">
+                ${metaParts.map(p => `<span>${escHtml(p)}</span>`).join('')}
+                <span class="badge ${escHtml(ses.badge)}">${escHtml(ses.label)}</span>
+                <span class="rpe-badge" style="color:${rClr}">RPE ${e.rpe}</span>
+              </div>
+              ${e.notes ? `<div class="entry-notes">${escHtml(e.notes)}</div>` : ''}
+            </div>
+            <button class="btn-delete" data-id="${escHtml(e.id)}" title="Slett økt">✕</button>
+          </div>`;
+      }).join('');
+
+      container.innerHTML = `<div class="history-list">${rows}</div>`;
+
+      // Attach delete handlers (event delegation)
+      container.querySelector('.history-list').addEventListener('click', e => {
+        const btn = e.target.closest('.btn-delete');
+        if (!btn) return;
+        if (!confirm('Slett denne økten?')) return;
+        const id = btn.dataset.id;
+        logEntries = logEntries.filter(entry => entry.id !== id);
+        persistLog();
+        renderHistory();
+      });
+    }
+
+    /* ═══════════════════════════════════════════
+       PLAN RENDER
+    ═══════════════════════════════════════════ */
+    function renderPlan() {
+      const container = document.getElementById('plan-container');
+
+      if (!trainingPlan) {
+        container.innerHTML = `
+          <div class="plan-empty">
+            <div class="plan-empty-icon">🤖</div>
+            <div class="plan-empty-title">Ingen plan ennå</div>
+            <div class="plan-empty-body">
+              Logg noen økter og koble til AI-coaching for å få en
+              personlig treningsplan basert på Ingebrigtsen-terskelmetoden.
+            </div>
+          </div>`;
+        return;
+      }
+
+      let html = '';
+
+      if (trainingPlan.coachComment) {
+        html += `
+          <div class="plan-comment">
+            <div class="plan-comment-label">Coach-kommentar</div>
+            <div class="plan-comment-text">${escHtml(trainingPlan.coachComment)}</div>
+          </div>`;
+      }
+
+      if (trainingPlan.weekPlan && trainingPlan.weekPlan.length > 0) {
+        const days = trainingPlan.weekPlan.map(day => {
+          const ses = session(day.sessionType);
+          const targets = [];
+          if (day.targetPace) targets.push(`🎯 ${escHtml(day.targetPace)}`);
+          if (day.targetHR)   targets.push(`❤️ ${escHtml(day.targetHR)}`);
+
+          return `
+            <div class="plan-day">
+              <div class="plan-day-top">
+                <span class="plan-day-date">${formatDate(day.date)}</span>
+                <span class="badge ${escHtml(ses.badge)}">${escHtml(ses.label)}</span>
+              </div>
+              <div class="plan-day-desc">${escHtml(day.description)}</div>
+              ${targets.length ? `<div class="plan-day-targets">${targets.join('<span>·</span>')}</div>` : ''}
+            </div>`;
+        }).join('');
+
+        html += `<div class="plan-days">${days}</div>`;
+      }
+
+      if (trainingPlan.updatedAt) {
+        html += `<div class="plan-updated">Oppdatert ${formatDate(trainingPlan.updatedAt)}</div>`;
+      }
+
+      container.innerHTML = html || '<div class="plan-empty"><div class="plan-empty-body">Ingen plandata tilgjengelig.</div></div>';
+    }
+
+    /* ═══════════════════════════════════════════
+       INIT
+    ═══════════════════════════════════════════ */
+    loadStorage();
+    document.getElementById('f-date').value = todayISO();
+    updateRpe(5);
+    renderHistory();
+    // Plan is rendered lazily when the tab is opened
+  </script>
+</body>
+</html>
