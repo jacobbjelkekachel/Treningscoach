@@ -1003,12 +1003,17 @@ VIKTIG: Returner KUN gyldig JSON i dette eksakte formatet, ingen markdown, ingen
         switchView('settings');
         return;
       }
-      const url = new URL('https://www.strava.com/oauth/authorize');
-      url.searchParams.set('client_id',     STRAVA_CLIENT_ID);
-      url.searchParams.set('redirect_uri',  STRAVA_REDIRECT);
-      url.searchParams.set('response_type', 'code');
-      url.searchParams.set('scope',         'activity:read_all');
-      window.location.href = url.toString();
+      // Build URL manually — URLSearchParams encodes ':' in scope and '/' in
+      // redirect_uri in ways Strava can reject. Use encodeURIComponent only
+      // for the redirect_uri value; leave scope colons unencoded.
+      const authUrl =
+        'https://www.strava.com/oauth/authorize' +
+        '?client_id='      + STRAVA_CLIENT_ID +
+        '&redirect_uri='   + encodeURIComponent(STRAVA_REDIRECT) +
+        '&response_type=code' +
+        '&approval_prompt=force' +
+        '&scope=activity:read_all';
+      window.location.href = authUrl;
     }
 
     async function handleStravaCallback() {
