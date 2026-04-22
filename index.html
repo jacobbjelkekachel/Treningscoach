@@ -9,33 +9,27 @@
   <meta name="apple-mobile-web-app-title" content="Treningscoach">
   <title>Treningscoach — Jacob</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:            #0f0f0f;
-      --surface:       #1c1c1e;
-      --surface-2:     #2c2c2e;
-      --border:        #3a3a3c;
-      --text:          #f5f5f7;
-      --text-muted:    #8e8e93;
-      --accent:        #ff6b35;
-      --green:         #30d158;
-      --yellow:        #ffd60a;
-      --orange:        #ff9f0a;
-      --red:           #ff453a;
-      --blue:          #0a84ff;
-      --nav-h:         60px;
-      --safe-top:      env(safe-area-inset-top, 0px);
-      --safe-bottom:   env(safe-area-inset-bottom, 0px);
+      --bg:          #0f0f0f;
+      --surface:     #1c1c1e;
+      --surface-2:   #2c2c2e;
+      --border:      #3a3a3c;
+      --text:        #f5f5f7;
+      --text-muted:  #8e8e93;
+      --accent:      #ff6b35;
+      --green:       #30d158;
+      --yellow:      #ffd60a;
+      --orange:      #ff9f0a;
+      --red:         #ff453a;
+      --blue:        #0a84ff;
+      --nav-h:       60px;
+      --safe-top:    env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    html, body {
-      height: 100%;
-    }
+    html, body { height: 100%; }
 
     body {
       background: var(--bg);
@@ -57,21 +51,10 @@
       padding-top: calc(var(--safe-top) + 12px);
       flex-shrink: 0;
     }
+    .app-header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+    .app-header p  { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
 
-    .app-header h1 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.3px;
-    }
-
-    .app-header p {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 1px;
-    }
-
-    /* ── MAIN SCROLL AREA ── */
+    /* ── MAIN ── */
     .main {
       flex: 1;
       overflow-y: auto;
@@ -79,25 +62,19 @@
       padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 20px);
     }
 
-    /* ── VIEWS ── */
     .view { display: none; }
     .view.active { display: block; }
 
-    /* ── SECTION TITLE ── */
+    /* ── TITLES ── */
     .section-title {
       font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.5px;
       padding: 20px 16px 10px;
-      color: var(--text);
     }
+    .section-title.sm { font-size: 18px; padding-top: 24px; }
 
-    .section-title.sm {
-      font-size: 18px;
-      padding-top: 24px;
-    }
-
-    /* ── FORM CARD ── */
+    /* ── CARDS ── */
     .card {
       background: var(--surface);
       border-radius: 14px;
@@ -105,14 +82,8 @@
       overflow: hidden;
     }
 
-    .field {
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .field:last-child {
-      border-bottom: none;
-    }
+    .field { padding: 13px 16px; border-bottom: 1px solid var(--border); }
+    .field:last-child { border-bottom: none; }
 
     .field-label {
       display: block;
@@ -123,25 +94,15 @@
       letter-spacing: 0.6px;
       margin-bottom: 7px;
     }
+    .field-label .opt { font-weight: 400; text-transform: none; letter-spacing: 0; opacity: 0.7; font-size: 11px; }
 
-    .field-label .opt {
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      opacity: 0.7;
-      font-size: 11px;
-    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    /* inputs */
+    /* ── INPUTS ── */
     input[type="date"],
     input[type="number"],
     input[type="text"],
+    input[type="password"],
     select,
     textarea {
       width: 100%;
@@ -159,11 +120,7 @@
       color-scheme: dark;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: var(--accent);
-    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
 
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238e8e93' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -171,23 +128,11 @@
       background-position: right 13px center;
       padding-right: 36px;
     }
-
-    select option {
-      background: var(--surface-2);
-    }
-
-    textarea {
-      resize: none;
-      min-height: 88px;
-      line-height: 1.5;
-    }
+    select option { background: var(--surface-2); }
+    textarea { resize: none; min-height: 88px; line-height: 1.5; }
 
     /* ── RPE SLIDER ── */
-    .rpe-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .rpe-wrap { display: flex; align-items: center; gap: 14px; }
 
     .rpe-num {
       font-size: 32px;
@@ -199,9 +144,7 @@
       transition: color 0.15s;
     }
 
-    .rpe-track {
-      flex: 1;
-    }
+    .rpe-track { flex: 1; }
 
     input[type="range"] {
       -webkit-appearance: none;
@@ -214,36 +157,24 @@
       outline: none;
       cursor: pointer;
     }
-
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 26px;
-      height: 26px;
+      width: 26px; height: 26px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      transition: background 0.15s;
     }
-
     input[type="range"]::-moz-range-thumb {
-      width: 26px;
-      height: 26px;
+      width: 26px; height: 26px;
       border-radius: 50%;
       background: var(--accent);
       border: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
+    .rpe-hint { display: flex; justify-content: space-between; margin-top: 5px; font-size: 11px; color: var(--text-muted); }
 
-    .rpe-hint {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* ── SAVE BUTTON ── */
-    .btn-save {
+    /* ── BUTTONS ── */
+    .btn-primary {
       display: block;
       width: calc(100% - 32px);
       margin: 0 16px 6px;
@@ -259,12 +190,29 @@
       -webkit-tap-highlight-color: transparent;
       transition: opacity 0.15s, transform 0.1s;
       letter-spacing: -0.2px;
+      text-align: center;
     }
+    .btn-primary:active { opacity: 0.82; transform: scale(0.975); }
 
-    .btn-save:active {
-      opacity: 0.82;
-      transform: scale(0.975);
+    .btn-secondary {
+      display: block;
+      width: calc(100% - 32px);
+      margin: 0 16px 12px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+      text-align: center;
     }
+    .btn-secondary:active { opacity: 0.7; }
+    .btn-secondary:disabled { opacity: 0.4; pointer-events: none; }
 
     /* ── HISTORY ── */
     .history-empty {
@@ -275,12 +223,7 @@
       line-height: 1.7;
     }
 
-    .history-list {
-      background: var(--surface);
-      border-radius: 14px;
-      margin: 0 16px 16px;
-      overflow: hidden;
-    }
+    .history-list { background: var(--surface); border-radius: 14px; margin: 0 16px 16px; overflow: hidden; }
 
     .history-entry {
       display: flex;
@@ -289,15 +232,11 @@
       padding: 13px 16px;
       border-bottom: 1px solid var(--border);
     }
-
-    .history-entry:last-child {
-      border-bottom: none;
-    }
+    .history-entry:last-child { border-bottom: none; }
 
     .entry-icon {
       font-size: 22px;
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 10px;
       background: var(--surface-2);
       display: flex;
@@ -306,10 +245,7 @@
       flex-shrink: 0;
     }
 
-    .entry-body {
-      flex: 1;
-      min-width: 0;
-    }
+    .entry-body { flex: 1; min-width: 0; }
 
     .entry-top {
       display: flex;
@@ -319,17 +255,8 @@
       margin-bottom: 3px;
     }
 
-    .entry-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .entry-date {
-      font-size: 12px;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
+    .entry-name { font-size: 15px; font-weight: 600; }
+    .entry-date { font-size: 12px; color: var(--text-muted); flex-shrink: 0; }
 
     .entry-meta {
       display: flex;
@@ -341,33 +268,17 @@
       margin-bottom: 3px;
     }
 
-    .entry-notes {
-      font-size: 13px;
-      color: var(--text-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .entry-notes { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    .badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      letter-spacing: 0.2px;
-    }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.2px; }
+    .badge-easy      { background: rgba(48,209,88,0.14);   color: var(--green); }
+    .badge-threshold { background: rgba(255,214,10,0.14);  color: var(--yellow); }
+    .badge-interval  { background: rgba(255,69,58,0.14);   color: var(--red); }
+    .badge-strength  { background: rgba(10,132,255,0.14);  color: var(--blue); }
+    .badge-recovery  { background: rgba(142,142,147,0.14); color: var(--text-muted); }
+    .badge-race      { background: rgba(255,107,53,0.14);  color: var(--accent); }
 
-    .badge-easy       { background: rgba(48,209,88,0.14);   color: var(--green); }
-    .badge-threshold  { background: rgba(255,214,10,0.14);  color: var(--yellow); }
-    .badge-interval   { background: rgba(255,69,58,0.14);   color: var(--red); }
-    .badge-strength   { background: rgba(10,132,255,0.14);  color: var(--blue); }
-    .badge-recovery   { background: rgba(142,142,147,0.14); color: var(--text-muted); }
-    .badge-race       { background: rgba(255,107,53,0.14);  color: var(--accent); }
-
-    .rpe-badge {
-      font-size: 12px;
-      font-weight: 700;
-    }
+    .rpe-badge { font-size: 12px; font-weight: 700; }
 
     .btn-delete {
       background: none;
@@ -383,13 +294,67 @@
       align-self: center;
       transition: opacity 0.15s, color 0.15s;
     }
+    .btn-delete:active { opacity: 1; color: var(--red); }
 
-    .btn-delete:active {
-      opacity: 1;
-      color: var(--red);
+    /* ── STRAVA IMPORT PANEL ── */
+    .import-panel {
+      background: var(--surface);
+      border-radius: 14px;
+      margin: 0 16px 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
+    .import-icon { font-size: 28px; flex-shrink: 0; }
+
+    .import-body { flex: 1; min-width: 0; }
+    .import-title { font-size: 14px; font-weight: 600; }
+    .import-sub { font-size: 12px; color: var(--text-muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .btn-import {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+    }
+    .btn-import:active { opacity: 0.7; }
+    .btn-import:disabled { opacity: 0.4; pointer-events: none; }
+
     /* ── PLAN VIEW ── */
+    .coach-btn-wrap { padding: 0 16px 4px; }
+
+    .btn-coach {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 13px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-coach:active { opacity: 0.8; }
+    .btn-coach:disabled { opacity: 0.5; pointer-events: none; }
+
     .plan-empty {
       background: var(--surface);
       border-radius: 14px;
@@ -397,24 +362,9 @@
       padding: 48px 24px;
       text-align: center;
     }
-
-    .plan-empty-icon {
-      font-size: 52px;
-      margin-bottom: 14px;
-    }
-
-    .plan-empty-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-
-    .plan-empty-body {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
+    .plan-empty-icon  { font-size: 52px; margin-bottom: 14px; }
+    .plan-empty-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .plan-empty-body  { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
     .plan-comment {
       background: var(--surface);
@@ -422,7 +372,6 @@
       margin: 0 16px 16px;
       padding: 16px;
     }
-
     .plan-comment-label {
       font-size: 11px;
       font-weight: 700;
@@ -431,28 +380,29 @@
       color: var(--text-muted);
       margin-bottom: 8px;
     }
+    .plan-comment-text { font-size: 15px; color: var(--text); line-height: 1.65; }
 
-    .plan-comment-text {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    .plan-days {
-      background: var(--surface);
+    .warning-card {
+      background: rgba(255,159,10,0.1);
+      border: 1px solid rgba(255,159,10,0.3);
       border-radius: 14px;
       margin: 0 16px 16px;
-      overflow: hidden;
+      padding: 14px 16px;
     }
+    .warning-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .warning-text { font-size: 14px; color: var(--text); line-height: 1.6; }
 
-    .plan-day {
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--border);
-    }
+    .plan-days { background: var(--surface); border-radius: 14px; margin: 0 16px 16px; overflow: hidden; }
 
-    .plan-day:last-child {
-      border-bottom: none;
-    }
+    .plan-day { padding: 13px 16px; border-bottom: 1px solid var(--border); }
+    .plan-day:last-child { border-bottom: none; }
 
     .plan-day-top {
       display: flex;
@@ -461,40 +411,72 @@
       gap: 8px;
       margin-bottom: 5px;
     }
+    .plan-day-date { font-size: 14px; font-weight: 600; }
+    .plan-day-desc { font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 5px; }
+    .plan-day-targets { display: flex; gap: 12px; font-size: 13px; color: var(--text-muted); flex-wrap: wrap; }
 
-    .plan-day-date {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
+    .plan-updated { text-align: center; font-size: 12px; color: var(--text-muted); padding: 0 16px 16px; }
 
-    .plan-day-desc {
-      font-size: 14px;
-      color: var(--text);
-      line-height: 1.5;
-      margin-bottom: 5px;
-    }
+    /* ── SETTINGS VIEW ── */
+    .settings-card { background: var(--surface); border-radius: 14px; margin: 0 16px 16px; overflow: hidden; }
 
-    .plan-day-targets {
+    .settings-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
       display: flex;
-      gap: 12px;
-      font-size: 13px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .settings-title { font-size: 15px; font-weight: 700; }
+
+    .status-chip {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .status-chip.ok   { background: rgba(48,209,88,0.14); color: var(--green); }
+    .status-chip.none { background: var(--surface-2); color: var(--text-muted); }
+
+    .settings-field { padding: 13px 16px; border-bottom: 1px solid var(--border); }
+    .settings-field:last-child { border-bottom: none; }
+
+    .settings-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
       color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 7px;
     }
 
-    .plan-updated {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      padding: 0 16px 16px;
+    .settings-action { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .settings-action:last-child { border-bottom: none; }
+
+    .btn-settings {
+      width: 100%;
+      background: rgba(255,107,53,0.14);
+      color: var(--accent);
+      border: none;
+      border-radius: 10px;
+      padding: 11px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: opacity 0.15s;
     }
+    .btn-settings:active { opacity: 0.7; }
+    .btn-settings.danger { background: rgba(255,69,58,0.1); color: var(--red); }
+
+    .settings-hint { font-size: 12px; color: var(--text-muted); padding: 10px 16px 14px; line-height: 1.6; }
 
     /* ── BOTTOM NAV ── */
     .bottom-nav {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: calc(var(--nav-h) + var(--safe-bottom));
       padding-bottom: var(--safe-bottom);
       background: var(--surface);
@@ -522,16 +504,8 @@
       transition: color 0.15s;
       letter-spacing: 0.2px;
     }
-
-    .nav-tab.active {
-      color: var(--accent);
-    }
-
-    .nav-tab svg {
-      width: 24px;
-      height: 24px;
-      stroke-width: 1.8;
-    }
+    .nav-tab.active { color: var(--accent); }
+    .nav-tab svg { width: 24px; height: 24px; stroke-width: 1.8; }
 
     /* ── TOAST ── */
     .toast {
@@ -551,25 +525,17 @@
       white-space: nowrap;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
+    .toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    .toast.visible {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* ── RESPONSIVE (wider screens) ── */
+    /* ── RESPONSIVE ── */
     @media (min-width: 520px) {
-      .card, .history-list, .plan-days, .plan-comment, .plan-empty {
+      .card, .history-list, .plan-days, .plan-comment, .plan-empty,
+      .warning-card, .import-panel, .settings-card {
         max-width: 480px;
         margin-left: auto;
         margin-right: auto;
       }
-
-      .btn-save {
-        max-width: 480px;
-        margin-left: auto;
-        margin-right: auto;
-      }
+      .btn-primary, .btn-secondary, .coach-btn-wrap { max-width: 480px; margin-left: auto; margin-right: auto; }
     }
   </style>
 </head>
@@ -588,15 +554,15 @@
     <section class="view active" id="view-log">
       <div class="section-title">Logg økt</div>
 
-      <div class="card">
+      <!-- Strava import panel (shown when connected) -->
+      <div id="import-panel" style="display:none"></div>
 
-        <!-- Dato -->
+      <!-- Log form -->
+      <div class="card">
         <div class="field">
           <label class="field-label" for="f-date">Dato</label>
           <input type="date" id="f-date" required>
         </div>
-
-        <!-- Aktivitetstype -->
         <div class="field">
           <label class="field-label" for="f-activity">Aktivitet</label>
           <select id="f-activity">
@@ -609,8 +575,6 @@
             <option value="other">⚡ Annet</option>
           </select>
         </div>
-
-        <!-- Økttype -->
         <div class="field">
           <label class="field-label" for="f-session">Økttype</label>
           <select id="f-session">
@@ -622,8 +586,6 @@
             <option value="race">Konkurranse</option>
           </select>
         </div>
-
-        <!-- Varighet + Distanse -->
         <div class="field">
           <div class="field-row">
             <div>
@@ -631,48 +593,33 @@
               <input type="number" id="f-duration" placeholder="60" min="1" max="600">
             </div>
             <div>
-              <label class="field-label" for="f-distance">
-                Distanse (km) <span class="opt">valgfritt</span>
-              </label>
+              <label class="field-label" for="f-distance">Distanse (km) <span class="opt">valgfritt</span></label>
               <input type="number" id="f-distance" placeholder="10.0" min="0" max="500" step="0.1">
             </div>
           </div>
         </div>
-
-        <!-- Gjennomsnittspuls -->
         <div class="field">
-          <label class="field-label" for="f-hr">
-            Snitt puls <span class="opt">valgfritt</span>
-          </label>
+          <label class="field-label" for="f-hr">Snitt puls <span class="opt">valgfritt</span></label>
           <input type="number" id="f-hr" placeholder="148" min="40" max="220">
         </div>
-
-        <!-- RPE -->
         <div class="field">
           <label class="field-label">RPE — opplevd intensitet</label>
           <div class="rpe-wrap">
             <div class="rpe-num" id="rpe-display">5</div>
             <div class="rpe-track">
               <input type="range" id="f-rpe" min="1" max="10" value="5">
-              <div class="rpe-hint">
-                <span>1 Veldig lett</span>
-                <span>10 Maks</span>
-              </div>
+              <div class="rpe-hint"><span>1 Veldig lett</span><span>10 Maks</span></div>
             </div>
           </div>
         </div>
-
-        <!-- Notater -->
         <div class="field">
           <label class="field-label" for="f-notes">Notater</label>
           <textarea id="f-notes" placeholder="Dagsform, søvn, stress, bein, motivasjon, alkohol…"></textarea>
         </div>
+      </div>
 
-      </div><!-- /card -->
+      <button class="btn-primary" id="btn-save">Lagre økt</button>
 
-      <button class="btn-save" id="btn-save">Lagre økt</button>
-
-      <!-- Historikk-liste -->
       <div class="section-title sm">Historikk</div>
       <div id="history-container"></div>
     </section>
@@ -682,7 +629,20 @@
     ═══════════════════════════════════════ -->
     <section class="view" id="view-plan">
       <div class="section-title">Min plan</div>
+      <div class="coach-btn-wrap">
+        <button class="btn-coach" id="btn-coach" onclick="requestCoaching()">
+          <span id="coach-btn-text">🤖 Be om AI-coaching</span>
+        </button>
+      </div>
       <div id="plan-container"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         VIEW: Innstillinger
+    ═══════════════════════════════════════ -->
+    <section class="view" id="view-settings">
+      <div class="section-title">Innstillinger</div>
+      <div id="settings-container"></div>
     </section>
 
   </main>
@@ -690,7 +650,6 @@
   <!-- ── BOTTOM NAV ── -->
   <nav class="bottom-nav">
     <button class="nav-tab active" id="nav-log" onclick="switchView('log')">
-      <!-- Pencil icon -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
@@ -698,7 +657,6 @@
       Logg økt
     </button>
     <button class="nav-tab" id="nav-plan" onclick="switchView('plan')">
-      <!-- Calendar icon -->
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="4" width="18" height="18" rx="2"/>
         <line x1="16" y1="2" x2="16" y2="6"/>
@@ -706,6 +664,13 @@
         <line x1="3" y1="10" x2="21" y2="10"/>
       </svg>
       Min plan
+    </button>
+    <button class="nav-tab" id="nav-settings" onclick="switchView('settings')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+      Innstillinger
     </button>
   </nav>
 
@@ -717,8 +682,19 @@
     /* ═══════════════════════════════════════════
        CONSTANTS
     ═══════════════════════════════════════════ */
-    const STORAGE_LOG  = 'treningscoach_log';
-    const STORAGE_PLAN = 'treningscoach_plan';
+    const STRAVA_CLIENT_ID = '229056';
+    const STRAVA_REDIRECT  = 'https://jacobbjelkekachel.github.io/Treningscoach/';
+    const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+
+    const K = {
+      log:           'treningscoach_log',
+      plan:          'treningscoach_plan',
+      stravaSecret:  'tc_strava_secret',
+      stravaAccess:  'tc_strava_access',
+      stravaRefresh: 'tc_strava_refresh',
+      stravaExpires: 'tc_strava_expires',
+      geminiKey:     'tc_gemini_key',
+    };
 
     const ACTIVITY = {
       running:      { label: 'Løping',   icon: '🏃' },
@@ -739,15 +715,91 @@
       race:      { label: 'Konkurranse', badge: 'badge-race' },
     };
 
-    // RPE colour scale 1–10
     const RPE_COLORS = [
       null,
-      '#30d158','#30d158','#30d158','#30d158',   // 1–4 green
-      '#ffd60a','#ffd60a',                        // 5–6 yellow
-      '#ff9f0a',                                  // 7 orange
-      '#ff6b35',                                  // 8 accent
-      '#ff453a','#ff453a',                        // 9–10 red
+      '#30d158','#30d158','#30d158','#30d158',
+      '#ffd60a','#ffd60a',
+      '#ff9f0a',
+      '#ff6b35',
+      '#ff453a','#ff453a',
     ];
+
+    const STRAVA_TYPE_MAP = {
+      Run: 'running', TrailRun: 'running', VirtualRun: 'running',
+      Ride: 'cycling', MountainBikeRide: 'cycling', VirtualRide: 'cycling', EBikeRide: 'cycling',
+      Swim: 'swimming',
+      NordicSki: 'crosscountry', BackcountrySki: 'crosscountry',
+      WeightTraining: 'strength', Workout: 'strength',
+      Walk: 'other', Hike: 'other',
+    };
+
+    // workout_type: 1=Race, 2=Long run, 3=Workout/intervals
+    const STRAVA_SESSION_MAP = { 1: 'race', 2: 'easy', 3: 'interval' };
+
+    const SYSTEM_PROMPT = `Du er en erfaren løpetrener med 20+ års erfaring fra toppidrett og mosjonister.
+Du er spesialist i Ingebrigtsen-familiens terskeltrening-metodikk og norsk
+utholdenhetstrening generelt. Du er direkte, konkret og bruker alltid eksakte
+puls- og pace-tall i anbefalingene dine.
+
+UTØVERPROFIL — JACOB:
+- Avansert løper, 70+ km/uke løping + høy tverrfaglig belastning (sykling, styrke, langrenn)
+- PB: 3000m 10:02 | 10K 35:43 (Drammen 11.04.2026) | Halvmaraton 1:21:41
+- Terskelltempo: 3:50–4:00/km
+- Rolige dager: 4:45–5:30/km
+- Intervallltempo (VO2max): 3:30–3:45/km
+- Trener 6 dager/uke: løping til/fra jobb med sekk, styrke 2x/uke, sykling
+- Høy konkurranseinstinkt — tenderer til å pushe hardere enn planlagt i trening
+- Kommuniserer åpent om søvn, alkohol, stress og dagsform
+- Nåværende mål: Oslo Sentrumsløpet 10K 25. april 2026 — sub 35:00
+- Styrke: bygger mot 5x5 benkpress på 100 kg (nåværende: 4x4 på 90 kg)
+
+TRENINGSFILOSOFI DU ALLTID FØLGER:
+1. 80–85% av løpevolumet skal være rolig aerob trening (under terskel)
+2. Maks 2 intensive/terskelbaserte løpeøkter per uke
+3. Rolige dager skal være genuint rolige — ikke halvharde
+4. Terskel = laktatterskel (~3–4 mmol), 3:50–4:00/km for Jacob
+5. Progresjon og justering styres alltid av Jacobs subjektive dagsform og RPE
+6. Aldri to harde dager på rad
+7. Ved RPE 8+ eller tegn på utmattelse: reduser neste dag automatisk
+8. Styrke skal ikke kollidere med nøkkeløkter i løping
+
+VIKTIG OM JACOB SOM UTØVER:
+- Han løp 35:43 på 10K (11. april 2026) etter en tøff påske med mye langrenn og fyll
+- Dette tyder på at han er i eksepsjonell form — sub 35 på sentrumsløpet er realistisk
+- Han tenderer til å pushe for hardt i intervaller — minn ham på å holde igjen
+- Løping til/fra jobb med sekk teller som lett belastning, ikke hvile
+
+OPPGAVE:
+Du mottar en logg over de siste ukene med økter, RPE og notater. Du skal:
+1. Kommentere siste økt kort (2–3 setninger) — vær ærlig, ikke bare positiv
+2. Gi en konkret plan for de neste 3–5 dagene med økttype, varighet, pace og puls
+3. Flagge eventuelle advarsler (overtrening, for lite restitusjon, for mye intensitet)
+4. Holde deg til terskeltrening-prinsippene uansett hva Jacob ber om
+
+Svar alltid på norsk. Vær direkte som en ekte trener — ikke vag eller overdrevent oppmuntrende.
+Bruk alltid konkrete pace-tall og pulssoner i planen. Hvis Jacob har trent for hardt, si det tydelig.
+
+VIKTIG: Returner KUN gyldig JSON i dette eksakte formatet, ingen markdown, ingen forklaring rundt:
+{
+  "coachComment": "2-3 setninger om siste økt",
+  "warnings": "advarsel om overtrening el.l., eller null",
+  "weekPlan": [
+    {
+      "date": "YYYY-MM-DD",
+      "sessionType": "easy|threshold|interval|strength|recovery|race",
+      "description": "Konkret øktbeskrivelse med varighet og tempo",
+      "targetPace": "X:XX–X:XX/km eller null",
+      "targetHR": "XXX–XXX eller null"
+    }
+  ]
+}`;
+
+    /* ═══════════════════════════════════════════
+       STORAGE HELPERS
+    ═══════════════════════════════════════════ */
+    const ls    = key => localStorage.getItem(key);
+    const lsSet = (key, val) => localStorage.setItem(key, String(val));
+    const lsDel = key => localStorage.removeItem(key);
 
     /* ═══════════════════════════════════════════
        STATE
@@ -755,52 +807,42 @@
     let logEntries   = [];
     let trainingPlan = null;
 
-    /* ═══════════════════════════════════════════
-       STORAGE
-    ═══════════════════════════════════════════ */
     function loadStorage() {
-      try { logEntries   = JSON.parse(localStorage.getItem(STORAGE_LOG)  || '[]'); } catch { logEntries = []; }
-      try { trainingPlan = JSON.parse(localStorage.getItem(STORAGE_PLAN) || 'null'); } catch { trainingPlan = null; }
+      try { logEntries   = JSON.parse(ls(K.log)  || '[]');  } catch { logEntries = []; }
+      try { trainingPlan = JSON.parse(ls(K.plan) || 'null'); } catch { trainingPlan = null; }
     }
 
-    function persistLog() {
-      localStorage.setItem(STORAGE_LOG, JSON.stringify(logEntries));
+    function persistLog() { localStorage.setItem(K.log, JSON.stringify(logEntries)); }
+
+    function persistPlan(plan) {
+      trainingPlan = plan;
+      localStorage.setItem(K.plan, JSON.stringify(plan));
     }
 
     /* ═══════════════════════════════════════════
        HELPERS
     ═══════════════════════════════════════════ */
-    function todayISO() {
-      return new Date().toISOString().slice(0, 10);
-    }
+    function todayISO() { return new Date().toISOString().slice(0, 10); }
 
     function generateId(date) {
-      const count = logEntries.filter(e => e.date === date).length;
-      return `${date}-${count + 1}`;
+      return `${date}-${logEntries.filter(e => e.date === date).length + 1}`;
     }
 
     function formatDate(iso) {
-      // Parse as local date to avoid off-by-one from UTC
       const [y, m, d] = iso.split('-').map(Number);
-      const date = new Date(y, m - 1, d);
-      return date.toLocaleDateString('nb-NO', { weekday: 'short', day: 'numeric', month: 'short' });
+      return new Date(y, m - 1, d).toLocaleDateString('nb-NO', { weekday: 'short', day: 'numeric', month: 'short' });
     }
 
     function escHtml(str) {
-      return String(str)
+      return String(str ?? '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
     }
 
-    function activity(key) {
-      return ACTIVITY[key] || { label: key, icon: '⚡' };
-    }
-
-    function session(key) {
-      return SESSION[key] || { label: key, badge: '' };
-    }
+    function act(key)  { return ACTIVITY[key] || { label: key, icon: '⚡' }; }
+    function ses(key)  { return SESSION[key]  || { label: key, badge: '' }; }
 
     /* ═══════════════════════════════════════════
        VIEW SWITCHING
@@ -810,7 +852,9 @@
       document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
       document.getElementById('view-' + name).classList.add('active');
       document.getElementById('nav-'  + name).classList.add('active');
-      if (name === 'plan') renderPlan();
+
+      if (name === 'plan')     renderPlan();
+      if (name === 'settings') renderSettings();
     }
 
     /* ═══════════════════════════════════════════
@@ -820,18 +864,11 @@
     const rpeDisplay = document.getElementById('rpe-display');
 
     function updateRpe(val) {
-      const n      = parseInt(val);
-      const color  = RPE_COLORS[n] || 'var(--accent)';
-      rpeDisplay.textContent   = n;
-      rpeDisplay.style.color   = color;
-      rpeInput.style.background = buildSliderGradient(n, color);
-      // keep thumb colour in sync via CSS variable trick
-      rpeInput.style.setProperty('--thumb', color);
-    }
-
-    function buildSliderGradient(val, color) {
-      const pct = ((val - 1) / 9) * 100;
-      return `linear-gradient(to right, ${color} ${pct}%, var(--surface-2) ${pct}%)`;
+      const n     = parseInt(val);
+      const color = RPE_COLORS[n] || 'var(--accent)';
+      rpeDisplay.textContent = n;
+      rpeDisplay.style.color = color;
+      rpeInput.style.background = `linear-gradient(to right, ${color} ${((n - 1) / 9) * 100}%, var(--surface-2) ${((n - 1) / 9) * 100}%)`;
     }
 
     rpeInput.addEventListener('input', () => updateRpe(rpeInput.value));
@@ -841,7 +878,6 @@
     ═══════════════════════════════════════════ */
     document.getElementById('btn-save').addEventListener('click', handleSave);
 
-    // Prevent accidental submit on Enter inside the form
     document.querySelector('.card').addEventListener('keydown', e => {
       if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
     });
@@ -850,29 +886,23 @@
       const date     = document.getElementById('f-date').value;
       const duration = parseInt(document.getElementById('f-duration').value);
 
-      if (!date) {
-        showToast('Velg en dato', false);
-        return;
-      }
-      if (!duration || duration < 1) {
-        showToast('Fyll inn varighet (min)', false);
-        return;
-      }
+      if (!date)                        { showToast('Velg en dato', false);          return; }
+      if (!duration || duration < 1)    { showToast('Fyll inn varighet (min)', false); return; }
 
       const distVal = parseFloat(document.getElementById('f-distance').value);
       const hrVal   = parseInt(document.getElementById('f-hr').value);
 
       const entry = {
-        id:             generateId(date),
+        id:              generateId(date),
         date,
-        timestamp:      Date.now(),
-        activityType:   document.getElementById('f-activity').value,
+        timestamp:       Date.now(),
+        activityType:    document.getElementById('f-activity').value,
         durationMinutes: duration,
-        distanceKm:     isNaN(distVal) || distVal <= 0 ? null : distVal,
-        avgHeartRate:   isNaN(hrVal)   || hrVal < 40   ? null : hrVal,
-        sessionType:    document.getElementById('f-session').value,
-        rpe:            parseInt(document.getElementById('f-rpe').value),
-        notes:          document.getElementById('f-notes').value.trim(),
+        distanceKm:      isNaN(distVal) || distVal <= 0 ? null : distVal,
+        avgHeartRate:    isNaN(hrVal)   || hrVal < 40   ? null : hrVal,
+        sessionType:     document.getElementById('f-session').value,
+        rpe:             parseInt(document.getElementById('f-rpe').value),
+        notes:           document.getElementById('f-notes').value.trim(),
       };
 
       logEntries.unshift(entry);
@@ -892,7 +922,6 @@
       document.getElementById('f-rpe').value      = '5';
       document.getElementById('f-notes').value    = '';
       updateRpe(5);
-      // Scroll back to top of main
       document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -900,84 +929,326 @@
        TOAST
     ═══════════════════════════════════════════ */
     let toastTimer;
-    function showToast(msg, success = true) {
-      const el  = document.getElementById('toast');
-      el.textContent       = msg;
-      el.style.background  = success ? 'var(--green)' : 'var(--red)';
-      el.style.color       = success ? '#000' : '#fff';
+    function showToast(msg, ok = true) {
+      const el = document.getElementById('toast');
+      el.textContent      = msg;
+      el.style.background = ok ? 'var(--green)' : 'var(--red)';
+      el.style.color      = ok ? '#000' : '#fff';
       el.classList.add('visible');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => el.classList.remove('visible'), 2400);
+      toastTimer = setTimeout(() => el.classList.remove('visible'), 2600);
     }
 
     /* ═══════════════════════════════════════════
-       HISTORY RENDER
+       HISTORY
     ═══════════════════════════════════════════ */
     function renderHistory() {
-      const container = document.getElementById('history-container');
+      const el = document.getElementById('history-container');
 
-      if (logEntries.length === 0) {
-        container.innerHTML = '<div class="history-empty">Ingen økter ennå.<br>Logg din første økt ovenfor.</div>';
+      if (!logEntries.length) {
+        el.innerHTML = '<div class="history-empty">Ingen økter ennå.<br>Logg din første økt ovenfor.</div>';
         return;
       }
 
       const rows = logEntries.map(e => {
-        const act  = activity(e.activityType);
-        const ses  = session(e.sessionType);
+        const a    = act(e.activityType);
+        const s    = ses(e.sessionType);
         const rClr = RPE_COLORS[e.rpe] || 'var(--accent)';
-
-        const metaParts = [];
-        if (e.durationMinutes) metaParts.push(`⏱ ${e.durationMinutes} min`);
-        if (e.distanceKm)      metaParts.push(`📍 ${e.distanceKm} km`);
-        if (e.avgHeartRate)    metaParts.push(`❤️ ${e.avgHeartRate} bpm`);
+        const meta = [
+          e.durationMinutes ? `⏱ ${e.durationMinutes} min` : null,
+          e.distanceKm      ? `📍 ${e.distanceKm} km`      : null,
+          e.avgHeartRate    ? `❤️ ${e.avgHeartRate} bpm`   : null,
+        ].filter(Boolean);
 
         return `
           <div class="history-entry">
-            <div class="entry-icon">${act.icon}</div>
+            <div class="entry-icon">${a.icon}</div>
             <div class="entry-body">
               <div class="entry-top">
-                <span class="entry-name">${escHtml(act.label)}</span>
+                <span class="entry-name">${escHtml(a.label)}</span>
                 <span class="entry-date">${formatDate(e.date)}</span>
               </div>
               <div class="entry-meta">
-                ${metaParts.map(p => `<span>${escHtml(p)}</span>`).join('')}
-                <span class="badge ${escHtml(ses.badge)}">${escHtml(ses.label)}</span>
+                ${meta.map(p => `<span>${escHtml(p)}</span>`).join('')}
+                <span class="badge ${s.badge}">${s.label}</span>
                 <span class="rpe-badge" style="color:${rClr}">RPE ${e.rpe}</span>
               </div>
               ${e.notes ? `<div class="entry-notes">${escHtml(e.notes)}</div>` : ''}
             </div>
-            <button class="btn-delete" data-id="${escHtml(e.id)}" title="Slett økt">✕</button>
+            <button class="btn-delete" data-id="${escHtml(e.id)}" title="Slett">✕</button>
           </div>`;
       }).join('');
 
-      container.innerHTML = `<div class="history-list">${rows}</div>`;
+      el.innerHTML = `<div class="history-list">${rows}</div>`;
 
-      // Attach delete handlers (event delegation)
-      container.querySelector('.history-list').addEventListener('click', e => {
-        const btn = e.target.closest('.btn-delete');
-        if (!btn) return;
-        if (!confirm('Slett denne økten?')) return;
-        const id = btn.dataset.id;
-        logEntries = logEntries.filter(entry => entry.id !== id);
+      el.querySelector('.history-list').addEventListener('click', ev => {
+        const btn = ev.target.closest('.btn-delete');
+        if (!btn || !confirm('Slett denne økten?')) return;
+        logEntries = logEntries.filter(e => e.id !== btn.dataset.id);
         persistLog();
         renderHistory();
       });
     }
 
     /* ═══════════════════════════════════════════
+       STRAVA
+    ═══════════════════════════════════════════ */
+    function isStravaConnected() {
+      return !!(ls(K.stravaAccess) && ls(K.stravaRefresh));
+    }
+
+    function connectStrava() {
+      if (!ls(K.stravaSecret)) {
+        showToast('Legg inn Client Secret i Innstillinger først', false);
+        switchView('settings');
+        return;
+      }
+      const url = new URL('https://www.strava.com/oauth/authorize');
+      url.searchParams.set('client_id',     STRAVA_CLIENT_ID);
+      url.searchParams.set('redirect_uri',  STRAVA_REDIRECT);
+      url.searchParams.set('response_type', 'code');
+      url.searchParams.set('scope',         'activity:read_all');
+      window.location.href = url.toString();
+    }
+
+    async function handleStravaCallback() {
+      const params = new URLSearchParams(window.location.search);
+      const code   = params.get('code');
+      const error  = params.get('error');
+
+      if (!code && !error) return; // normal page load
+
+      // Clear URL immediately
+      history.replaceState({}, '', window.location.pathname);
+
+      if (error) {
+        showToast('Strava-tilkobling avbrutt', false);
+        return;
+      }
+
+      try {
+        await exchangeStravaCode(code);
+        showToast('Strava tilkoblet ✓');
+        renderImportPanel();
+        switchView('settings');
+      } catch (err) {
+        showToast('Strava-feil: ' + err.message, false);
+      }
+    }
+
+    async function exchangeStravaCode(code) {
+      const body = new URLSearchParams({
+        client_id:     STRAVA_CLIENT_ID,
+        client_secret: ls(K.stravaSecret) || '',
+        code,
+        grant_type:    'authorization_code',
+      });
+
+      const res = await fetch('https://www.strava.com/oauth/token', { method: 'POST', body });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      lsSet(K.stravaAccess,  data.access_token);
+      lsSet(K.stravaRefresh, data.refresh_token);
+      lsSet(K.stravaExpires, data.expires_at);
+    }
+
+    async function ensureStravaToken() {
+      const expires = parseInt(ls(K.stravaExpires) || '0');
+      const now     = Math.floor(Date.now() / 1000);
+
+      if (now < expires - 300) return ls(K.stravaAccess); // still valid
+
+      const body = new URLSearchParams({
+        client_id:     STRAVA_CLIENT_ID,
+        client_secret: ls(K.stravaSecret) || '',
+        refresh_token: ls(K.stravaRefresh) || '',
+        grant_type:    'refresh_token',
+      });
+
+      const res = await fetch('https://www.strava.com/oauth/token', { method: 'POST', body });
+      if (!res.ok) throw new Error('Token refresh feilet — koble til Strava på nytt');
+
+      const data = await res.json();
+      lsSet(K.stravaAccess,  data.access_token);
+      lsSet(K.stravaRefresh, data.refresh_token);
+      lsSet(K.stravaExpires, data.expires_at);
+      return data.access_token;
+    }
+
+    function disconnectStrava() {
+      if (!confirm('Koble fra Strava?')) return;
+      lsDel(K.stravaAccess);
+      lsDel(K.stravaRefresh);
+      lsDel(K.stravaExpires);
+      renderImportPanel();
+      renderSettings();
+      showToast('Strava frakoblet');
+    }
+
+    async function importFromStrava() {
+      const btn = document.getElementById('btn-import-strava');
+      if (btn) { btn.disabled = true; btn.textContent = 'Henter…'; }
+
+      try {
+        const token = await ensureStravaToken();
+        const res   = await fetch('https://www.strava.com/api/v3/athlete/activities?per_page=1', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error(`Strava API ${res.status}`);
+        const [latest] = await res.json();
+        if (!latest) { showToast('Ingen aktiviteter funnet på Strava', false); return; }
+        fillFormFromStrava(latest);
+        showToast('Aktivitet importert ✓');
+        document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        showToast('Strava-feil: ' + err.message, false);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Importer'; }
+      }
+    }
+
+    function fillFormFromStrava(a) {
+      const date = a.start_date_local.slice(0, 10);
+      const type = STRAVA_TYPE_MAP[a.type] || 'other';
+      const sType = STRAVA_SESSION_MAP[a.workout_type] || 'easy';
+
+      document.getElementById('f-date').value     = date;
+      document.getElementById('f-activity').value = type;
+      document.getElementById('f-session').value  = sType;
+      document.getElementById('f-duration').value = Math.round(a.moving_time / 60);
+
+      if (a.distance > 0)
+        document.getElementById('f-distance').value = (Math.round(a.distance / 100) / 10).toFixed(1);
+      if (a.average_heartrate)
+        document.getElementById('f-hr').value = Math.round(a.average_heartrate);
+
+      document.getElementById('f-notes').value = a.name || '';
+    }
+
+    function renderImportPanel() {
+      const el = document.getElementById('import-panel');
+      if (!isStravaConnected()) { el.style.display = 'none'; return; }
+
+      el.style.display = '';
+      el.innerHTML = `
+        <div class="import-panel">
+          <div class="import-icon">🟠</div>
+          <div class="import-body">
+            <div class="import-title">Strava tilkoblet</div>
+            <div class="import-sub">Hent siste økt direkte fra Strava</div>
+          </div>
+          <button class="btn-import" id="btn-import-strava" onclick="importFromStrava()">Importer</button>
+        </div>`;
+    }
+
+    /* ═══════════════════════════════════════════
+       GEMINI — AI COACHING
+    ═══════════════════════════════════════════ */
+    async function requestCoaching() {
+      if (!ls(K.geminiKey)) {
+        showToast('Legg inn Gemini API-nøkkel i Innstillinger', false);
+        switchView('settings');
+        return;
+      }
+
+      if (!logEntries.length) {
+        showToast('Logg minst én økt først', false);
+        return;
+      }
+
+      const btn  = document.getElementById('btn-coach');
+      const text = document.getElementById('coach-btn-text');
+      btn.disabled   = true;
+      text.textContent = '⏳ Analyserer…';
+
+      try {
+        const prompt   = buildCoachingPrompt();
+        const response = await callGemini(prompt);
+        persistPlan({ ...response, updatedAt: todayISO() });
+        renderPlan();
+        showToast('Plan oppdatert ✓');
+      } catch (err) {
+        showToast('Feil: ' + err.message, false);
+      } finally {
+        btn.disabled     = false;
+        text.textContent = '🤖 Oppdater plan';
+      }
+    }
+
+    function buildCoachingPrompt() {
+      const today = todayISO();
+      const lines = logEntries.slice(0, 30).map(e => {
+        const a = act(e.activityType).label;
+        const s = ses(e.sessionType).label;
+        const parts = [
+          `[${e.date}]`,
+          a, '—', s,
+          '—', `${e.durationMinutes} min`,
+          e.distanceKm   ? `— ${e.distanceKm} km`      : null,
+          e.avgHeartRate ? `— ${e.avgHeartRate} bpm`   : null,
+          `— RPE ${e.rpe}`,
+        ].filter(Boolean).join(' ');
+
+        return e.notes ? `${parts}\nNotater: ${e.notes}` : parts;
+      }).join('\n\n');
+
+      return `TRENINGSLOGG (nyeste økt først):\n\n${lines}\n\nDAGENS DATO: ${today}`;
+    }
+
+    async function callGemini(userMessage) {
+      const key = ls(K.geminiKey);
+      const body = {
+        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+        generationConfig: { responseMimeType: 'application/json' },
+      };
+
+      const res = await fetch(`${GEMINI_URL}?key=${key}`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        const msg = err?.error?.message || `HTTP ${res.status}`;
+        throw new Error(msg);
+      }
+
+      const data = await res.json();
+      const raw  = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!raw) throw new Error('Tom respons fra Gemini');
+
+      try {
+        return JSON.parse(raw);
+      } catch {
+        throw new Error('Kunne ikke tolke Gemini-responsen som JSON');
+      }
+    }
+
+    /* ═══════════════════════════════════════════
        PLAN RENDER
     ═══════════════════════════════════════════ */
     function renderPlan() {
-      const container = document.getElementById('plan-container');
+      const el = document.getElementById('plan-container');
+
+      // Update coaching button label
+      const btnText = document.getElementById('coach-btn-text');
+      if (btnText) btnText.textContent = trainingPlan ? '🔄 Oppdater plan' : '🤖 Be om AI-coaching';
 
       if (!trainingPlan) {
-        container.innerHTML = `
+        el.innerHTML = `
           <div class="plan-empty">
             <div class="plan-empty-icon">🤖</div>
             <div class="plan-empty-title">Ingen plan ennå</div>
             <div class="plan-empty-body">
-              Logg noen økter og koble til AI-coaching for å få en
-              personlig treningsplan basert på Ingebrigtsen-terskelmetoden.
+              Trykk «Be om AI-coaching» over for å få en<br>
+              personlig plan basert på din treningslogg.
             </div>
           </div>`;
         return;
@@ -993,21 +1264,30 @@
           </div>`;
       }
 
-      if (trainingPlan.weekPlan && trainingPlan.weekPlan.length > 0) {
+      if (trainingPlan.warnings && trainingPlan.warnings !== 'null') {
+        html += `
+          <div class="warning-card">
+            <div class="warning-label">⚠️ Advarsel</div>
+            <div class="warning-text">${escHtml(trainingPlan.warnings)}</div>
+          </div>`;
+      }
+
+      if (trainingPlan.weekPlan?.length) {
         const days = trainingPlan.weekPlan.map(day => {
-          const ses = session(day.sessionType);
-          const targets = [];
-          if (day.targetPace) targets.push(`🎯 ${escHtml(day.targetPace)}`);
-          if (day.targetHR)   targets.push(`❤️ ${escHtml(day.targetHR)}`);
+          const s       = ses(day.sessionType);
+          const targets = [
+            day.targetPace ? `🎯 ${escHtml(day.targetPace)}` : null,
+            day.targetHR   ? `❤️ ${escHtml(day.targetHR)}`   : null,
+          ].filter(Boolean);
 
           return `
             <div class="plan-day">
               <div class="plan-day-top">
                 <span class="plan-day-date">${formatDate(day.date)}</span>
-                <span class="badge ${escHtml(ses.badge)}">${escHtml(ses.label)}</span>
+                <span class="badge ${s.badge}">${s.label}</span>
               </div>
               <div class="plan-day-desc">${escHtml(day.description)}</div>
-              ${targets.length ? `<div class="plan-day-targets">${targets.join('<span>·</span>')}</div>` : ''}
+              ${targets.length ? `<div class="plan-day-targets">${targets.join('<span style="margin:0 2px">·</span>')}</div>` : ''}
             </div>`;
         }).join('');
 
@@ -1018,17 +1298,112 @@
         html += `<div class="plan-updated">Oppdatert ${formatDate(trainingPlan.updatedAt)}</div>`;
       }
 
-      container.innerHTML = html || '<div class="plan-empty"><div class="plan-empty-body">Ingen plandata tilgjengelig.</div></div>';
+      el.innerHTML = html || '<div class="plan-empty"><div class="plan-empty-body">Ingen plandata.</div></div>';
+    }
+
+    /* ═══════════════════════════════════════════
+       SETTINGS
+    ═══════════════════════════════════════════ */
+    function renderSettings() {
+      const el = document.getElementById('settings-container');
+
+      const stravaConnected = isStravaConnected();
+      const geminiSet       = !!ls(K.geminiKey);
+
+      el.innerHTML = `
+
+        <!-- STRAVA -->
+        <div class="settings-card">
+          <div class="settings-header">
+            <span class="settings-title">🟠 Strava</span>
+            <span class="status-chip ${stravaConnected ? 'ok' : 'none'}">
+              ${stravaConnected ? 'Tilkoblet' : 'Ikke tilkoblet'}
+            </span>
+          </div>
+
+          <div class="settings-field">
+            <label class="settings-label" for="s-strava-secret">Client Secret</label>
+            <input type="password" id="s-strava-secret"
+              placeholder="Lim inn client secret fra Strava"
+              value="${ls(K.stravaSecret) ? '••••••••••••••••' : ''}">
+          </div>
+
+          <div class="settings-action">
+            <button class="btn-settings" onclick="saveStravaSecret()">Lagre client secret</button>
+          </div>
+
+          ${stravaConnected
+            ? `<div class="settings-action">
+                 <button class="btn-settings danger" onclick="disconnectStrava()">Koble fra Strava</button>
+               </div>`
+            : `<div class="settings-action">
+                 <button class="btn-settings" onclick="connectStrava()">Koble til Strava →</button>
+               </div>`
+          }
+
+          <div class="settings-hint">
+            Client ID: 229056 · Callback: jacobbjelkekachel.github.io<br>
+            Du finner Client Secret på strava.com/settings/api
+          </div>
+        </div>
+
+        <!-- GEMINI -->
+        <div class="settings-card">
+          <div class="settings-header">
+            <span class="settings-title">🤖 Google Gemini</span>
+            <span class="status-chip ${geminiSet ? 'ok' : 'none'}">
+              ${geminiSet ? 'Konfigurert' : 'Ikke konfigurert'}
+            </span>
+          </div>
+
+          <div class="settings-field">
+            <label class="settings-label" for="s-gemini-key">API-nøkkel</label>
+            <input type="password" id="s-gemini-key"
+              placeholder="Lim inn Gemini API-nøkkel"
+              value="${geminiSet ? '••••••••••••••••' : ''}">
+          </div>
+
+          <div class="settings-action">
+            <button class="btn-settings" onclick="saveGeminiKey()">Lagre API-nøkkel</button>
+          </div>
+
+          <div class="settings-hint">
+            Skaff nøkkel på aistudio.google.com → Get API key<br>
+            Modell: gemini-2.0-flash (gratis)
+          </div>
+        </div>`;
+    }
+
+    function saveStravaSecret() {
+      const input = document.getElementById('s-strava-secret');
+      const val   = input.value.trim();
+      if (!val || val.startsWith('•')) { showToast('Lim inn ny client secret', false); return; }
+      lsSet(K.stravaSecret, val);
+      input.value = '••••••••••••••••';
+      showToast('Client secret lagret ✓');
+      renderSettings();
+    }
+
+    function saveGeminiKey() {
+      const input = document.getElementById('s-gemini-key');
+      const val   = input.value.trim();
+      if (!val || val.startsWith('•')) { showToast('Lim inn ny API-nøkkel', false); return; }
+      lsSet(K.geminiKey, val);
+      input.value = '••••••••••••••••';
+      showToast('API-nøkkel lagret ✓');
+      renderSettings();
     }
 
     /* ═══════════════════════════════════════════
        INIT
     ═══════════════════════════════════════════ */
     loadStorage();
+    handleStravaCallback();          // Must run before any render
     document.getElementById('f-date').value = todayISO();
     updateRpe(5);
     renderHistory();
-    // Plan is rendered lazily when the tab is opened
+    renderImportPanel();
+    // Plan + Settings rendered lazily on tab switch
   </script>
 </body>
 </html>
